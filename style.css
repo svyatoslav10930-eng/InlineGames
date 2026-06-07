@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--tg-theme-bg-color, #fff);
+    color: var(--tg-theme-text-color, #000);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#app {
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+}
+
+h1 {
+    font-size: 1.3em;
+    margin-bottom: 8px;
+}
+
+#status {
+    color: var(--tg-theme-hint-color, #666);
+    margin-bottom: 24px;
+}
+
+#choices {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.choice-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 20px 16px;
+    border: 2px solid var(--tg-theme-button-color, #40a7e3);
+    border-radius: 16px;
+    background: var(--tg-theme-bg-color, #fff);
+    cursor: pointer;
+    transition: all 0.15s;
+    flex: 1;
+    max-width: 110px;
+}
+
+.choice-btn:active {
+    transform: scale(0.95);
+    background: var(--tg-theme-button-color, #40a7e3);
+}
+
+.choice-btn .emoji {
+    font-size: 2.5em;
+}
+
+.choice-btn .label {
+    font-size: 0.85em;
+    color: var(--tg-theme-text-color, #000);
+}
+
+#result {
+    margin-top: 20px;
+    padding: 12px;
+    border-radius: 10px;
+    background: var(--tg-theme-secondary-bg-color, #f0f0f0);
+}
+
+.hidden {
+    display: none;
+}
