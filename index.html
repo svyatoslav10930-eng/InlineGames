@@ -1,34 +1,31 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Камень-Ножницы-Бумага</title>
-    <link rel="stylesheet" href="style.css">
+    <title>КНБ</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 40px 20px; }
+        .btn { font-size: 2em; padding: 20px 30px; margin: 10px; border: 2px solid #40a7e3; border-radius: 16px; background: #fff; cursor: pointer; }
+        .btn:active { background: #40a7e3; color: #fff; }
+    </style>
 </head>
 <body>
-    <div id="app">
-        <h1>🪨 Камень-Ножницы-Бумага ✂️📄</h1>
-        <p id="status">Выбери свой вариант:</p>
-        <div id="choices">
-            <button class="choice-btn" data-choice="rock">
-                <span class="emoji">🪨</span>
-                <span class="label">Камень</span>
-            </button>
-            <button class="choice-btn" data-choice="scissors">
-                <span class="emoji">✂️</span>
-                <span class="label">Ножницы</span>
-            </button>
-            <button class="choice-btn" data-choice="paper">
-                <span class="emoji">📄</span>
-                <span class="label">Бумага</span>
-            </button>
-        </div>
-        <div id="result" class="hidden">
-            <p>Отправляем выбор...</p>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+    <h1>🪨✂️📄</h1>
+    <p id="s">Выбери:</p>
+    <button class="btn" data-c="rock">🪨</button>
+    <button class="btn" data-c="scissors">✂️</button>
+    <button class="btn" data-c="paper">📄</button>
+    <p id="r" style="display:none">Отправка...</p>
+    <script>
+        try { window.Telegram.WebApp.ready(); window.Telegram.WebApp.expand(); } catch(e) {}
+        document.querySelectorAll('.btn').forEach(function(b) {
+            b.onclick = function() {
+                document.getElementById('s').textContent = 'Выбрано!';
+                document.getElementById('r').style.display = 'block';
+                try { window.Telegram.WebApp.sendData(JSON.stringify({choice:this.dataset.c})); } catch(e) {}
+            };
+        });
+    </script>
 </body>
 </html>
