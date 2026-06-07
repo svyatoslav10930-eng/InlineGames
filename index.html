@@ -4,28 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>КНБ</title>
-    <style>
-        body { font-family: sans-serif; text-align: center; padding: 40px 20px; }
-        .btn { font-size: 2em; padding: 20px 30px; margin: 10px; border: 2px solid #40a7e3; border-radius: 16px; background: #fff; cursor: pointer; }
-        .btn:active { background: #40a7e3; color: #fff; }
-    </style>
 </head>
 <body>
-    <h1>🪨✂️📄</h1>
-    <p id="s">Выбери:</p>
-    <button class="btn" data-c="rock">🪨</button>
-    <button class="btn" data-c="scissors">✂️</button>
-    <button class="btn" data-c="paper">📄</button>
-    <p id="r" style="display:none">Отправка...</p>
+    <h1>Камень-Ножницы-Бумага</h1>
+    <p id="status">Загрузка...</p>
+    <div id="buttons" style="display:none">
+        <button onclick="sendChoice('rock')">🪨 Камень</button>
+        <button onclick="sendChoice('scissors')">✂️ Ножницы</button>
+        <button onclick="sendChoice('paper')">📄 Бумага</button>
+    </div>
+    <p id="result" style="display:none">Выбрано! Отправляем...</p>
     <script>
-        try { window.Telegram.WebApp.ready(); window.Telegram.WebApp.expand(); } catch(e) {}
-        document.querySelectorAll('.btn').forEach(function(b) {
-            b.onclick = function() {
-                document.getElementById('s').textContent = 'Выбрано!';
-                document.getElementById('r').style.display = 'block';
-                try { window.Telegram.WebApp.sendData(JSON.stringify({choice:this.dataset.c})); } catch(e) {}
-            };
-        });
+        function init() {
+            if (window.Telegram && window.Telegram.WebApp) {
+                window.Telegram.WebApp.ready();
+                window.Telegram.WebApp.expand();
+                document.getElementById('status').textContent = 'Выбери жест:';
+                document.getElementById('buttons').style.display = 'block';
+            } else {
+                document.getElementById('status').textContent = 'Ошибка: не удалось инициализировать WebApp';
+            }
+        }
+        function sendChoice(choice) {
+            document.getElementById('status').textContent = 'Выбрано!';
+            document.getElementById('buttons').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+            if (window.Telegram && window.Telegram.WebApp) {
+                window.Telegram.WebApp.sendData(JSON.stringify({choice: choice}));
+            }
+        }
+        window.addEventListener('load', init);
     </script>
 </body>
 </html>
